@@ -55,34 +55,32 @@ class SecondActivity : AppCompatActivity() {
 
             builder.show()
         }
-
-        val image = intent.getIntExtra("dataImage", 0)
-        binding.secondImageView.setImageResource(image)
-
-        val product = intent.getStringExtra("dataProduct")
-        binding.secondProductTextView.text = product
-
-        val introduction = intent.getStringExtra("dataIntroduction")
-        binding.secondIntroductionTextView.text = introduction
-
-        val seller = intent.getStringExtra("dataSeller")
-        binding.secondSellerTextView.text = seller
-
-        val price = intent.getStringExtra("dataPrice")
-        val priceInt = price?.toIntOrNull() ?: 0
-        val priceComma = addCommas(priceInt)
-        binding.seconPriceTextView.text = "${priceComma}원"
-
-        val address = intent.getStringExtra("dataAddress")
-        binding.secondAddressTextView.text = address
+        fun addCommas(number: Int): String {
+            val formatter = DecimalFormat("#,###,###")
+            return formatter.format(number.toLong())
+        }
 
 
+        intent.getParcelableExtra("dataList") as? MyItem
+        val myItem: MyItem? = intent.getParcelableExtra("dataList") as? MyItem
+
+        myItem?.let { item ->
+            val aImage: Int = item.aImage
+            val aProduct: String = item.aProduct
+            val aIntroduction: String = item.aIntroduction
+            val aSeller: String = item.aSeller
+            val aPrice: String = item.aPrice
+            val aAddress: String = item.aAddress
+            val aLike: String = item.aLike
+            val aChat: String = item.aChat
+            binding.secondImageView.setImageResource(aImage)
+            binding.secondProductTextView.text = aProduct
+            binding.secondIntroductionTextView.text = aIntroduction
+            binding.secondSellerTextView.text = aSeller
+            val priceInt = aPrice?.toIntOrNull() ?: 0
+            val priceComma = addCommas(priceInt)
+            binding.seconPriceTextView.text = "${priceComma}원"
+            binding.secondAddressTextView.text = aAddress
+        }
     }
-    fun addCommas(number: Int): String {
-        val formatter = DecimalFormat("#,###,###")
-        return formatter.format(number.toLong())
-    }
-
-//    val priceComma = addCommas(mItems[position].aPrice.toInt())
-//    holder.price.text = "${priceComma}원"
 }

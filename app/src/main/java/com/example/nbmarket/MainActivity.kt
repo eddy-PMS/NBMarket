@@ -22,6 +22,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.nbmarket.databinding.ActivityMainBinding
 import java.text.DecimalFormat
 
@@ -172,23 +173,10 @@ class MainActivity : AppCompatActivity() {
 
         adapter.itemClick = object :MyAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
-                val image: Int = dataList[position].aImage
-                val product: String = dataList[position].aProduct
-                val introduction: String = dataList[position].aIntroduction
-                val seller: String = dataList[position].aSeller
-                val price: String = dataList[position].aPrice
-                val address: String = dataList[position].aAddress
-                val like: String = dataList[position].aLike
-                val chat: String = dataList[position].aChat
+
                 val intent = Intent(this@MainActivity, SecondActivity::class.java)
-                intent.putExtra("dataImage", image)
-                intent.putExtra("dataProduct", product)
-                intent.putExtra("dataIntroduction", introduction)
-                intent.putExtra("dataSeller", seller)
-                intent.putExtra("dataPrice", price)
-                intent.putExtra("dataAddress", address)
-                intent.putExtra("dataLike", like)
-                intent.putExtra("dataChat", chat)
+                intent.putExtra("dataList", dataList[position])
+
                 startActivity(intent)
             }
         }
@@ -219,6 +207,9 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+//    fun updown_Listener(view: Recy) {
+//
+//    }
 
     fun notification() {
         val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
